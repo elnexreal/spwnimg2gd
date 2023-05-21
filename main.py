@@ -13,12 +13,10 @@ def save_pixels_to_json(image_path, output_path):
     # too lazy to fix the mirror bug lmaoooo
     image = ImageOps.flip(image)
 
-    # modify this for image resizing
-    new_width = 70
+    # modify this for image resizing (bigger value = more objects)
+    new_width = 50
     # DONT MODIFY THIS, THIS IS FOR KEEPING THE ASPECT RATIO
     new_height = int(height * new_width / width)
-
-    print(new_width, new_height)
 
     image = image.resize((new_width, new_height))
 
@@ -52,6 +50,9 @@ if os.path.exists(f"./images/{name}"):
         if (name.endswith(".jpg")):
             image_path = f"./images/{name}"
         else:
+            if not os.path.exists("./images/converted"):
+                os.mkdir("./images/converted")
+
             im = Image.open(f"./images/{name}").convert("RGB")
             im.save("./images/converted/image.jpg")
             image_path = "./images/converted/image.jpg"
@@ -65,5 +66,9 @@ try:
     save_pixels_to_json(image_path, output_path)
 except Exception as err:
     print(Fore.RED + f"Error: {err}")
+else:
+    print("Successfully converted to raw data, executing the spwn script... \n")
 
 os.system("spwn build ./lib/convert.spwn --allow readfile")
+
+os.remove('./output.json')
