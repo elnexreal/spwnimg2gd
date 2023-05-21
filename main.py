@@ -1,10 +1,18 @@
 import json
 import os
+from time import sleep
 from colorsys import rgb_to_hsv
 from colorama import Fore
 from PIL import Image, ImageOps
 
 # HAHAHAHA LMAO SHITTY CODE (i mean it works, so i don't rlly care :3)
+
+os.system("cls")
+print("SPWN Image to GD - by elnexreal")
+print("Check out my github at https://github.com/elnexreal")
+
+sleep(2)
+os.system("cls")
 
 def save_pixels_to_json(image_path, output_path):
     image = Image.open(image_path)
