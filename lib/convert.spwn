@@ -1,0 +1,29 @@
+extract obj_props
+json = $.readfile("./output.json", "json")
+
+// $.assert(0 in json.keys())
+
+for i in 0..json.length {
+
+	// set the scale to 10 if you want full size (i made this bc i want precision)
+	scale = 2
+
+	posx = json[i].posx * (scale / 10) * 30
+	posy = json[i].posy * (scale / 10) * 30
+
+	// r = json[i].red
+	// g = json[i].green
+	// b = json[i].blue
+
+	hsv = json[i].hsv
+	// col = rgb8(r, g, b)
+
+	$.add(obj {
+	  OBJ_ID: 211,
+	  X: posx,
+	  Y: posy,
+	  SCALING: scale / 10,
+	  HVS_ENABLED: true,
+	  HVS: hsv //.fmt([col.h(), col.s(), col.b()])
+	})
+}
