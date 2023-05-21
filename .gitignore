@@ -1,4 +1,4 @@
 output.json
 /images/*
 !/images/put-your-images-here
-!/images/converted/
+!/images/converted/dont-add-images-here
