@@ -49,9 +49,6 @@ if os.path.exists(f"./images/{name}"):
         image_path = f"./images/{name}"
     # if the image is rgb or another format convert it to jpg
     else:
-        if not os.path.exists("./images/converted"):
-            os.mkdir("./images/converted")
-
         im = Image.open(f"./images/{name}").convert("RGB")
         im.save("./images/converted/image.jpg")
         image_path = "./images/converted/image.jpg"
