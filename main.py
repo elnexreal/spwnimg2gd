@@ -1,5 +1,4 @@
 import json
-from json_minify import json_minify
 import os
 from time import sleep
 from colorsys import rgb_to_hsv
@@ -15,18 +14,17 @@ settings_path = "./settings.json"
 os.system("cls")
 print("SPWN Image to GD - by elnexreal")
 print("Check out my github at https://github.com/elnexreal")
-print("\n" + "Wait 2 seconds")
+print("\n" + "Wait 1 second")
 
-sleep(2)
+sleep(1)
 os.system("cls")
 
 def save_pixels_to_json(image_path, output_path, settings_path):
 
-    # TODO: make the settings handler
     with open(settings_path) as settingsfile:
         settings = json.loads(settingsfile.read())
 
-    image = Image.open(image_path)
+    image = Image.open(image_path).convert("RGB")
     width, height = image.size
 
     # too lazy to fix the mirror bug lmaoooo
@@ -47,15 +45,13 @@ def save_pixels_to_json(image_path, output_path, settings_path):
         for x in range(new_width):
             # gets current RGB for the current pixel in the iteration
             r, g, b = image.getpixel((x, y))
+            # print(f"RGBA: {r} {g} {b} {a} POSXY: {x} {y}")
             # converts the RGB color to HSV
             color = rgb_to_hsv(r, g, b)
             obj = {
                 "posx": x,
                 "posy": y,
-                "hsv": f"{color[0] * 360}a{color[1]}a{color[2] / 255}a0a0"
-                # "red": r,
-                # "green": g,
-                # "blue": b
+                "hsv": f"{color[0] * 360}a{color[1]}a{color[2] / 255}a0a0",
             }
             pix.append(obj)
 
@@ -71,25 +67,15 @@ except ValueError as err:
 
 # check if the file name provided by the user is correct
 if os.path.exists(f"./images/{name}"):
-    # if the image is in jpg format don't convert
-    if (name.endswith(".jpg")):
-        image_path = f"./images/{name}"
-    # if the image is png or another format convert it to jpg
-    else:
-        im = Image.open(f"./images/{name}").convert("RGB")
-        im.save("./images/converted/image.jpg")
-        image_path = "./images/converted/image.jpg"
+    image_path = f"./images/{name}"
+    print(image_path)
 else:
     print(Fore.YELLOW + "File not found")
     exit()
 
-try:
-    save_pixels_to_json(image_path, output_path, settings_path)
-except Exception as err:
-    print(Fore.RED + f"Error: {err}")
-    exit()
-else:
-    print("Successfully converted to raw data, executing the spwn script... \n")
+save_pixels_to_json(image_path, output_path, settings_path)
+
+print("Successfully converted to raw data, executing the spwn script... \n")
 
 # spwn script execution
 try:

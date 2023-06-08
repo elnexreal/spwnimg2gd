@@ -17,12 +17,24 @@ for i in 0..json.pixels.length {
 	// col = rgb8(r, g, b)
 
 	$.add(obj {
-	  OBJ_ID: 211,
-	  X: settings.placeposx + posx,
-	  Y: settings.placeposy + posy,
-	  COLOR: @color(json.channel),
-	  SCALING: scale / 10,
-	  HVS_ENABLED: true,
-	  HVS: hsv //.fmt([col.h(), col.s(), col.b()])
+		OBJ_ID: 211,
+	  	X: settings.placeposx + posx,
+	 	Y: settings.placeposy + posy,
+		COLOR: @color(json.channel),
+	  	SCALING: scale / 10,
+	  	HVS_ENABLED: true,
+	  	HVS: hsv //.fmt([col.h(), col.s(), col.b()])
 	})
+
+	// if json.pixels[i].alpha > 50 {
+	// 	$.add(obj {
+	//   		OBJ_ID: 211,
+	// 	  	X: settings.placeposx + posx,
+	//  	 	Y: settings.placeposy + posy,
+	//   		COLOR: @color(json.channel),
+	//   		SCALING: scale / 10,
+	//   		HVS_ENABLED: true,
+	//   		HVS: hsv //.fmt([col.h(), col.s(), col.b()])
+	// 	})
+	// }
 }
